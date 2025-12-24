@@ -26,4 +26,9 @@ export class ClientController {
     async update(@Param('id') id: string, @Request() req, @Body() body: any) {
         return this.clientService.update(id, req.user.businessId, body);
     }
+
+    @Patch(':id/enable-portal')
+    async enablePortal(@Param('id') id: string, @Request() req, @Body() body: { password: string }) {
+        return this.clientService.enablePortal(id, req.user.businessId, body.password);
+    }
 }

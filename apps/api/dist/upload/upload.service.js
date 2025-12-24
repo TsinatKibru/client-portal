@@ -26,17 +26,22 @@ let UploadService = class UploadService {
     async uploadFile(file, businessId, projectId) {
         return new Promise((resolve, reject) => {
             const upload = cloudinary_1.v2.uploader.upload_stream({
-                folder: `client-portal/${businessId}/${projectId}`,
+                folder: `client-portal/${businessId}/${projectId || 'general'}`,
                 upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
+                resource_type: 'auto',
             }, async (error, result) => {
                 if (error)
                     return reject(error);
                 if (!result)
                     return reject(new Error('Upload failed: no result returned'));
+                if (!projectId || projectId === 'branding') {
+                    return resolve({ url: result.secure_url });
+                }
                 const savedFile = await this.prisma.file.create({
                     data: {
                         name: file.originalname,
                         url: result.secure_url,
+                        publicId: result.public_id,
                         type: file.mimetype,
                         businessId,
                         projectId,
@@ -45,6 +50,29 @@ let UploadService = class UploadService {
                 resolve(savedFile);
             });
             upload.end(file.buffer);
+        });
+    }
+    async deleteFile(fileId, businessId) {
+        console.log(`UploadService: Attempting to delete file ${fileId} for business ${businessId}`);
+        const file = await this.prisma.file.findFirst({
+            where: { id: fileId, businessId },
+        });
+        if (!file) {
+            console.error(`UploadService: File ${fileId} not found or doesn't belong to business ${businessId}`);
+            throw new Error('File not found or access denied');
+        }
+        if (file.publicId) {
+            try {
+                console.log(`UploadService: Destroying Cloudinary asset ${file.publicId}`);
+                await cloudinary_1.v2.uploader.destroy(file.publicId);
+            }
+            catch (err) {
+                console.error(`UploadService: Cloudinary destroy failed for ${file.publicId}:`, err);
+            }
+        }
+        console.log(`UploadService: Deleting file ${fileId} from database`);
+        return this.prisma.file.delete({
+            where: { id: fileId },
         });
     }
 };

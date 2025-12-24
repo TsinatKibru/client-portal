@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class ClientService {
@@ -32,4 +33,27 @@ export class ClientService {
             data,
         });
     }
+
+    async enablePortal(id: string, businessId: string, password: string) {
+        const client = await this.prisma.client.findFirst({
+            where: { id, businessId },
+        });
+
+        if (!client) throw new NotFoundException('Client not found');
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        return this.prisma.user.create({
+            data: {
+                email: client.email,
+                password: hashedPassword,
+                role: 'CLIENT',
+                businessId: businessId,
+                client: {
+                    connect: { id: client.id }
+                }
+            }
+        });
+    }
 }
+

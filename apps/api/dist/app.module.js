@@ -17,12 +17,13 @@ const client_module_1 = require("./client/client.module");
 const project_module_1 = require("./project/project.module");
 const invoice_module_1 = require("./invoice/invoice.module");
 const upload_module_1 = require("./upload/upload.module");
+const portal_module_1 = require("./portal/portal.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [prisma_module_1.PrismaModule, auth_module_1.AuthModule, business_module_1.BusinessModule, client_module_1.ClientModule, project_module_1.ProjectModule, invoice_module_1.InvoiceModule, upload_module_1.UploadModule],
+        imports: [prisma_module_1.PrismaModule, auth_module_1.AuthModule, business_module_1.BusinessModule, client_module_1.ClientModule, project_module_1.ProjectModule, invoice_module_1.InvoiceModule, upload_module_1.UploadModule, portal_module_1.PortalModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

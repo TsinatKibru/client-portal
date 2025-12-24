@@ -8,9 +8,10 @@ import { ClientModule } from './client/client.module';
 import { ProjectModule } from './project/project.module';
 import { InvoiceModule } from './invoice/invoice.module';
 import { UploadModule } from './upload/upload.module';
+import { PortalModule } from './portal/portal.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, BusinessModule, ClientModule, ProjectModule, InvoiceModule, UploadModule],
+  imports: [PrismaModule, AuthModule, BusinessModule, ClientModule, ProjectModule, InvoiceModule, UploadModule, PortalModule],
   controllers: [AppController],
   providers: [AppService],
 })

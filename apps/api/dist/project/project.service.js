@@ -12,10 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProjectService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const upload_service_1 = require("../upload/upload.service");
 let ProjectService = class ProjectService {
     prisma;
-    constructor(prisma) {
+    uploadService;
+    constructor(prisma, uploadService) {
         this.prisma = prisma;
+        this.uploadService = uploadService;
     }
     async findAll(businessId) {
         return this.prisma.project.findMany({
@@ -46,10 +49,43 @@ let ProjectService = class ProjectService {
             data: { status },
         });
     }
+    async delete(id, businessId) {
+        console.log(`ProjectService: Starting deletion of project ${id} for business ${businessId}`);
+        const files = await this.prisma.file.findMany({
+            where: { projectId: id, businessId },
+        });
+        console.log(`ProjectService: Found ${files.length} files to delete`);
+        for (const file of files) {
+            if (file.publicId) {
+                try {
+                    await this.uploadService.deleteFile(file.id, businessId);
+                }
+                catch (err) {
+                    console.error(`ProjectService: Failed to delete file ${file.id} from Cloudinary:`, err);
+                }
+            }
+            else {
+                console.log(`ProjectService: Deleting file ${file.id} (no publicId) from DB`);
+                await this.prisma.file.delete({ where: { id: file.id } });
+            }
+        }
+        console.log(`ProjectService: Finally deleting project ${id}`);
+        return this.prisma.project.delete({
+            where: { id, businessId },
+        });
+    }
+    async findAllFiles(businessId) {
+        return this.prisma.file.findMany({
+            where: { businessId },
+            include: { project: true },
+            orderBy: { createdAt: 'desc' },
+        });
+    }
 };
 exports.ProjectService = ProjectService;
 exports.ProjectService = ProjectService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        upload_service_1.UploadService])
 ], ProjectService);
 //# sourceMappingURL=project.service.js.map

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
@@ -10,6 +10,11 @@ export class ProjectController {
     @Get()
     async findAll(@Request() req) {
         return this.projectService.findAll(req.user.businessId);
+    }
+
+    @Get('all/files')
+    async findAllFiles(@Request() req) {
+        return this.projectService.findAllFiles(req.user.businessId);
     }
 
     @Post()
@@ -25,5 +30,10 @@ export class ProjectController {
     @Patch(':id/status')
     async updateStatus(@Param('id') id: string, @Request() req, @Body() body: { status: string }) {
         return this.projectService.updateStatus(id, req.user.businessId, body.status);
+    }
+
+    @Delete(':id')
+    async delete(@Param('id') id: string, @Request() req) {
+        return this.projectService.delete(id, req.user.businessId);
     }
 }

@@ -5,13 +5,89 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InvoiceController = void 0;
 const common_1 = require("@nestjs/common");
+const invoice_service_1 = require("./invoice.service");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let InvoiceController = class InvoiceController {
+    invoiceService;
+    constructor(invoiceService) {
+        this.invoiceService = invoiceService;
+    }
+    async findAll(req) {
+        return this.invoiceService.findAll(req.user.businessId);
+    }
+    async create(req, body) {
+        return this.invoiceService.create(req.user.businessId, body);
+    }
+    async findOne(id, req) {
+        return this.invoiceService.findOne(id, req.user.businessId);
+    }
+    async updateStatus(id, req, body) {
+        return this.invoiceService.updateStatus(id, req.user.businessId, body.status);
+    }
+    async downloadPdf(id, req, res) {
+        const buffer = await this.invoiceService.generatePdf(id, req.user.businessId);
+        res.set({
+            'Content-Type': 'application/pdf',
+            'Content-Disposition': `attachment; filename=invoice-${id}.pdf`,
+            'Content-Length': buffer.length,
+        });
+        res.end(buffer);
+    }
 };
 exports.InvoiceController = InvoiceController;
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], InvoiceController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], InvoiceController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], InvoiceController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Patch)(':id/status'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Request)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, Object]),
+    __metadata("design:returntype", Promise)
+], InvoiceController.prototype, "updateStatus", null);
+__decorate([
+    (0, common_1.Get)(':id/pdf'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Request)()),
+    __param(2, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, Object]),
+    __metadata("design:returntype", Promise)
+], InvoiceController.prototype, "downloadPdf", null);
 exports.InvoiceController = InvoiceController = __decorate([
-    (0, common_1.Controller)('invoice')
+    (0, common_1.Controller)('invoices'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __metadata("design:paramtypes", [invoice_service_1.InvoiceService])
 ], InvoiceController);
 //# sourceMappingURL=invoice.controller.js.map

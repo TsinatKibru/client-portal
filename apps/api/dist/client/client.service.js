@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ClientService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const bcrypt = require("bcrypt");
 let ClientService = class ClientService {
     prisma;
     constructor(prisma) {
@@ -39,6 +40,25 @@ let ClientService = class ClientService {
         return this.prisma.client.updateMany({
             where: { id, businessId },
             data,
+        });
+    }
+    async enablePortal(id, businessId, password) {
+        const client = await this.prisma.client.findFirst({
+            where: { id, businessId },
+        });
+        if (!client)
+            throw new common_1.NotFoundException('Client not found');
+        const hashedPassword = await bcrypt.hash(password, 10);
+        return this.prisma.user.create({
+            data: {
+                email: client.email,
+                password: hashedPassword,
+                role: 'CLIENT',
+                businessId: businessId,
+                client: {
+                    connect: { id: client.id }
+                }
+            }
         });
     }
 };

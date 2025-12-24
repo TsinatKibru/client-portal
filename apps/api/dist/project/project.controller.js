@@ -24,6 +24,9 @@ let ProjectController = class ProjectController {
     async findAll(req) {
         return this.projectService.findAll(req.user.businessId);
     }
+    async findAllFiles(req) {
+        return this.projectService.findAllFiles(req.user.businessId);
+    }
     async create(req, body) {
         return this.projectService.create(req.user.businessId, body);
     }
@@ -32,6 +35,9 @@ let ProjectController = class ProjectController {
     }
     async updateStatus(id, req, body) {
         return this.projectService.updateStatus(id, req.user.businessId, body.status);
+    }
+    async delete(id, req) {
+        return this.projectService.delete(id, req.user.businessId);
     }
 };
 exports.ProjectController = ProjectController;
@@ -42,6 +48,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)('all/files'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ProjectController.prototype, "findAllFiles", null);
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Request)()),
@@ -67,6 +80,14 @@ __decorate([
     __metadata("design:paramtypes", [String, Object, Object]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "updateStatus", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], ProjectController.prototype, "delete", null);
 exports.ProjectController = ProjectController = __decorate([
     (0, common_1.Controller)('projects'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),

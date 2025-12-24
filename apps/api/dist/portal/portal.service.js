@@ -9,32 +9,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BusinessService = void 0;
+exports.PortalService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
-let BusinessService = class BusinessService {
+let PortalService = class PortalService {
     prisma;
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async findOne(id) {
-        const business = await this.prisma.business.findUnique({
-            where: { id: id.toString() },
+    async getClientProjects(userId) {
+        const client = await this.prisma.client.findFirst({
+            where: { userId },
         });
-        if (!business)
-            throw new common_1.NotFoundException('Business not found');
-        return business;
+        if (!client)
+            return [];
+        return this.prisma.project.findMany({
+            where: { clientId: client.id, businessId: client.businessId },
+            include: { files: true },
+            orderBy: { updatedAt: 'desc' },
+        });
     }
-    async update(id, data) {
-        return this.prisma.business.update({
-            where: { id },
-            data,
+    async getClientInvoices(userId) {
+        const client = await this.prisma.client.findFirst({
+            where: { userId },
+        });
+        if (!client)
+            return [];
+        return this.prisma.invoice.findMany({
+            where: { clientId: client.id, businessId: client.businessId },
+            orderBy: { createdAt: 'desc' },
         });
     }
 };
-exports.BusinessService = BusinessService;
-exports.BusinessService = BusinessService = __decorate([
+exports.PortalService = PortalService;
+exports.PortalService = PortalService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService])
-], BusinessService);
-//# sourceMappingURL=business.service.js.map
+], PortalService);
+//# sourceMappingURL=portal.service.js.map

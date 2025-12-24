@@ -1,9 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { ProjectStatus } from '@prisma/client';
+import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable()
 export class ProjectService {
-    constructor(private prisma: PrismaService) { }
+    constructor(
+        private prisma: PrismaService,
+        private uploadService: UploadService
+    ) { }
 
     async findAll(businessId: string) {
         return this.prisma.project.findMany({
@@ -35,6 +40,42 @@ export class ProjectService {
         return this.prisma.project.updateMany({
             where: { id, businessId },
             data: { status },
+        });
+    }
+
+    async delete(id: string, businessId: string) {
+        console.log(`ProjectService: Starting deletion of project ${id} for business ${businessId}`);
+        // Find files associated with the project to delete them from Cloudinary
+        const files = await this.prisma.file.findMany({
+            where: { projectId: id, businessId },
+        });
+
+        console.log(`ProjectService: Found ${files.length} files to delete`);
+
+        for (const file of files) {
+            if (file.publicId) {
+                try {
+                    await this.uploadService.deleteFile(file.id, businessId);
+                } catch (err) {
+                    console.error(`ProjectService: Failed to delete file ${file.id} from Cloudinary:`, err);
+                }
+            } else {
+                console.log(`ProjectService: Deleting file ${file.id} (no publicId) from DB`);
+                await this.prisma.file.delete({ where: { id: file.id } });
+            }
+        }
+
+        console.log(`ProjectService: Finally deleting project ${id}`);
+        return this.prisma.project.delete({
+            where: { id, businessId },
+        });
+    }
+
+    async findAllFiles(businessId: string) {
+        return this.prisma.file.findMany({
+            where: { businessId },
+            include: { project: true },
+            orderBy: { createdAt: 'desc' },
         });
     }
 }

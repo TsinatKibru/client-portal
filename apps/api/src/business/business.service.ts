@@ -16,10 +16,7 @@ export class BusinessService {
     async update(id: string, data: any) {
         return this.prisma.business.update({
             where: { id },
-            data: {
-                name: data.name,
-                logo: data.logo,
-            },
+            data,
         });
     }
 }

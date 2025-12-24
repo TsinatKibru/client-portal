@@ -10,6 +10,7 @@ export declare class ClientService {
         updatedAt: Date;
         name: string;
         phone: string | null;
+        userId: string | null;
     }[]>;
     create(businessId: string, data: any): Promise<{
         id: string;
@@ -19,6 +20,7 @@ export declare class ClientService {
         updatedAt: Date;
         name: string;
         phone: string | null;
+        userId: string | null;
     }>;
     findOne(id: string, businessId: string): Promise<{
         id: string;
@@ -28,6 +30,16 @@ export declare class ClientService {
         updatedAt: Date;
         name: string;
         phone: string | null;
+        userId: string | null;
     } | null>;
     update(id: string, businessId: string, data: any): Promise<import(".prisma/client").Prisma.BatchPayload>;
+    enablePortal(id: string, businessId: string, password: string): Promise<{
+        id: string;
+        email: string;
+        password: string;
+        role: import(".prisma/client").$Enums.Role;
+        businessId: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
 }

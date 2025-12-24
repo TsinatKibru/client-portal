@@ -25,6 +25,14 @@ let UploadController = class UploadController {
     async uploadFile(file, req, projectId) {
         return this.uploadService.uploadFile(file, req.user.businessId, projectId);
     }
+    async deleteFile(fileId, req) {
+        console.log(`Deleting file ${fileId} for business ${req.user.businessId}`);
+        return this.uploadService.deleteFile(fileId, req.user.businessId);
+    }
+    async deleteFileAny(fileId, req) {
+        console.log(`Deleting any file ${fileId} for business ${req.user.businessId}`);
+        return this.uploadService.deleteFile(fileId, req.user.businessId);
+    }
 };
 exports.UploadController = UploadController;
 __decorate([
@@ -37,6 +45,22 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object, String]),
     __metadata("design:returntype", Promise)
 ], UploadController.prototype, "uploadFile", null);
+__decorate([
+    (0, common_1.Delete)(':projectId/delete/:fileId'),
+    __param(0, (0, common_1.Param)('fileId')),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], UploadController.prototype, "deleteFile", null);
+__decorate([
+    (0, common_1.Delete)('delete-any/:fileId'),
+    __param(0, (0, common_1.Param)('fileId')),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], UploadController.prototype, "deleteFileAny", null);
 exports.UploadController = UploadController = __decorate([
     (0, common_1.Controller)('upload'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),

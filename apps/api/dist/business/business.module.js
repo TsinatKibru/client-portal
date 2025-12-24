@@ -10,11 +10,13 @@ exports.BusinessModule = void 0;
 const common_1 = require("@nestjs/common");
 const business_controller_1 = require("./business.controller");
 const business_service_1 = require("./business.service");
+const upload_module_1 = require("../upload/upload.module");
 let BusinessModule = class BusinessModule {
 };
 exports.BusinessModule = BusinessModule;
 exports.BusinessModule = BusinessModule = __decorate([
     (0, common_1.Module)({
+        imports: [upload_module_1.UploadModule],
         controllers: [business_controller_1.BusinessController],
         providers: [business_service_1.BusinessService]
     })
