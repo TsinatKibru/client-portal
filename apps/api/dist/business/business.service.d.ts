@@ -1,0 +1,23 @@
+import { PrismaService } from '../prisma/prisma.service';
+export declare class BusinessService {
+    private prisma;
+    constructor(prisma: PrismaService);
+    findOne(id: String): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        slug: string;
+        logo: string | null;
+        status: string;
+    }>;
+    update(id: string, data: any): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        slug: string;
+        logo: string | null;
+        status: string;
+    }>;
+}
