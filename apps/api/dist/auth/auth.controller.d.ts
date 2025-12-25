@@ -20,4 +20,13 @@ export declare class AuthController {
             businessId: string;
         };
     }>;
+    changePassword(req: any, body: any): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        email: string;
+        password: string;
+        role: import(".prisma/client").$Enums.Role;
+        businessId: string;
+    }>;
 }

@@ -22,4 +22,13 @@ export declare class AuthService {
             businessId: string;
         };
     }>;
+    changePassword(userId: string, data: any): Promise<{
+        id: string;
+        email: string;
+        password: string;
+        role: import(".prisma/client").$Enums.Role;
+        businessId: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
 }
