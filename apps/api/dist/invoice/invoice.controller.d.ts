@@ -6,18 +6,18 @@ export declare class InvoiceController {
     findAll(req: any): Promise<({
         client: {
             id: string;
-            createdAt: Date;
-            userId: string | null;
             email: string;
             businessId: string;
+            createdAt: Date;
             updatedAt: Date;
             name: string;
+            userId: string | null;
             phone: string | null;
         };
     } & {
         id: string;
-        createdAt: Date;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
         status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;
@@ -30,8 +30,8 @@ export declare class InvoiceController {
     })[]>;
     create(req: any, body: any): Promise<{
         id: string;
-        createdAt: Date;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
         status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;
@@ -48,9 +48,9 @@ export declare class InvoiceController {
             createdAt: Date;
             updatedAt: Date;
             name: string;
-            status: string;
-            logo: string | null;
             slug: string;
+            logo: string | null;
+            status: string;
             currency: string;
             brandColor: string;
             address: string | null;
@@ -58,18 +58,18 @@ export declare class InvoiceController {
         };
         client: {
             id: string;
-            createdAt: Date;
-            userId: string | null;
             email: string;
             businessId: string;
+            createdAt: Date;
             updatedAt: Date;
             name: string;
+            userId: string | null;
             phone: string | null;
         };
     } & {
         id: string;
-        createdAt: Date;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
         status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;

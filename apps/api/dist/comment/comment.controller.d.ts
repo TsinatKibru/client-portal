@@ -14,11 +14,11 @@ export declare class CommentController {
         };
     } & {
         id: string;
-        content: string;
         createdAt: Date;
-        userId: string;
         projectId: string;
+        userId: string;
         fileId: string | null;
+        content: string;
     }>;
     findAll(projectId: string): Promise<({
         user: {
@@ -28,10 +28,10 @@ export declare class CommentController {
         };
     } & {
         id: string;
-        content: string;
         createdAt: Date;
-        userId: string;
         projectId: string;
+        userId: string;
         fileId: string | null;
+        content: string;
     })[]>;
 }

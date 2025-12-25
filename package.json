@@ -1,6 +1,7 @@
 {
   "name": "client-portal",
   "private": true,
+  "packageManager": "npm@10.5.0",
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",

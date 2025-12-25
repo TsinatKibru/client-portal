@@ -24,11 +24,11 @@ export declare class AuthService {
     }>;
     changePassword(userId: string, data: any): Promise<{
         id: string;
-        createdAt: Date;
         email: string;
         password: string;
         role: import("@prisma/client").$Enums.Role;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
     }>;
 }

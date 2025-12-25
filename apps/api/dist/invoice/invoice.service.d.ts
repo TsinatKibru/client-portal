@@ -5,18 +5,18 @@ export declare class InvoiceService {
     findAll(businessId: string): Promise<({
         client: {
             id: string;
-            createdAt: Date;
-            userId: string | null;
             email: string;
             businessId: string;
+            createdAt: Date;
             updatedAt: Date;
             name: string;
+            userId: string | null;
             phone: string | null;
         };
     } & {
         id: string;
-        createdAt: Date;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
         status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;
@@ -29,8 +29,8 @@ export declare class InvoiceService {
     })[]>;
     create(businessId: string, data: any): Promise<{
         id: string;
-        createdAt: Date;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
         status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;
@@ -47,9 +47,9 @@ export declare class InvoiceService {
             createdAt: Date;
             updatedAt: Date;
             name: string;
-            status: string;
-            logo: string | null;
             slug: string;
+            logo: string | null;
+            status: string;
             currency: string;
             brandColor: string;
             address: string | null;
@@ -57,18 +57,18 @@ export declare class InvoiceService {
         };
         client: {
             id: string;
-            createdAt: Date;
-            userId: string | null;
             email: string;
             businessId: string;
+            createdAt: Date;
             updatedAt: Date;
             name: string;
+            userId: string | null;
             phone: string | null;
         };
     } & {
         id: string;
-        createdAt: Date;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
         status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;

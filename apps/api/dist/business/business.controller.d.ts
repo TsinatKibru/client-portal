@@ -9,9 +9,9 @@ export declare class BusinessController {
         createdAt: Date;
         updatedAt: Date;
         name: string;
-        status: string;
-        logo: string | null;
         slug: string;
+        logo: string | null;
+        status: string;
         currency: string;
         brandColor: string;
         address: string | null;
@@ -22,9 +22,9 @@ export declare class BusinessController {
         createdAt: Date;
         updatedAt: Date;
         name: string;
-        status: string;
-        logo: string | null;
         slug: string;
+        logo: string | null;
+        status: string;
         currency: string;
         brandColor: string;
         address: string | null;

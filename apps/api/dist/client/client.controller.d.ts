@@ -4,32 +4,32 @@ export declare class ClientController {
     constructor(clientService: ClientService);
     findAll(req: any): Promise<{
         id: string;
-        createdAt: Date;
-        userId: string | null;
         email: string;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
         name: string;
+        userId: string | null;
         phone: string | null;
     }[]>;
     create(req: any, body: any): Promise<{
         id: string;
-        createdAt: Date;
-        userId: string | null;
         email: string;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
         name: string;
+        userId: string | null;
         phone: string | null;
     }>;
     findOne(id: string, req: any): Promise<{
         id: string;
-        createdAt: Date;
-        userId: string | null;
         email: string;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
         name: string;
+        userId: string | null;
         phone: string | null;
     } | null>;
     update(id: string, req: any, body: any): Promise<import("@prisma/client").Prisma.BatchPayload>;
@@ -37,21 +37,21 @@ export declare class ClientController {
         password: string;
     }): Promise<{
         id: string;
-        createdAt: Date;
         email: string;
         password: string;
         role: import("@prisma/client").$Enums.Role;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
     }>;
     disablePortal(id: string, req: any): Promise<{
         id: string;
-        createdAt: Date;
-        userId: string | null;
         email: string;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
         name: string;
+        userId: string | null;
         phone: string | null;
     } | {
         message: string;

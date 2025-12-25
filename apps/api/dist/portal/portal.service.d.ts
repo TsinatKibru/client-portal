@@ -5,28 +5,28 @@ export declare class PortalService {
     getClientProjects(userId: string): Promise<({
         files: {
             id: string;
-            createdAt: Date;
-            projectId: string;
             businessId: string;
+            createdAt: Date;
             name: string;
             url: string;
             publicId: string | null;
             type: string;
+            projectId: string;
         }[];
     } & {
         id: string;
-        createdAt: Date;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
-        title: string;
-        description: string | null;
         status: import("@prisma/client").$Enums.ProjectStatus;
+        description: string | null;
+        title: string;
         clientId: string;
     })[]>;
     getClientInvoices(userId: string): Promise<{
         id: string;
-        createdAt: Date;
         businessId: string;
+        createdAt: Date;
         updatedAt: Date;
         status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;

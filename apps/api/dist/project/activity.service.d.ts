@@ -10,12 +10,12 @@ export declare class ActivityService {
         businessId: string;
     }): Promise<{
         id: string;
-        createdAt: Date;
-        userId: string;
-        projectId: string;
         businessId: string;
-        description: string;
+        createdAt: Date;
         type: string;
+        projectId: string;
+        description: string;
+        userId: string;
     }>;
     findAll(projectId: string): Promise<({
         user: {
@@ -24,12 +24,12 @@ export declare class ActivityService {
         };
     } & {
         id: string;
-        createdAt: Date;
-        userId: string;
-        projectId: string;
         businessId: string;
-        description: string;
+        createdAt: Date;
         type: string;
+        projectId: string;
+        description: string;
+        userId: string;
     })[]>;
     findAllByBusiness(businessId: string, limit?: number): Promise<({
         user: {
@@ -41,11 +41,11 @@ export declare class ActivityService {
         };
     } & {
         id: string;
-        createdAt: Date;
-        userId: string;
-        projectId: string;
         businessId: string;
-        description: string;
+        createdAt: Date;
         type: string;
+        projectId: string;
+        description: string;
+        userId: string;
     })[]>;
 }
