@@ -23,6 +23,10 @@ export declare class InvoiceController {
         clientId: string;
         invoiceNumber: string;
         amount: number;
+        lineItems: import("@prisma/client/runtime/library").JsonValue | null;
+        subtotal: number;
+        tax: number;
+        total: number;
     })[]>;
     create(req: any, body: any): Promise<{
         id: string;
@@ -33,6 +37,10 @@ export declare class InvoiceController {
         clientId: string;
         invoiceNumber: string;
         amount: number;
+        lineItems: import("@prisma/client/runtime/library").JsonValue | null;
+        subtotal: number;
+        tax: number;
+        total: number;
     }>;
     findOne(id: string, req: any): Promise<{
         business: {
@@ -43,6 +51,10 @@ export declare class InvoiceController {
             slug: string;
             logo: string | null;
             status: string;
+            currency: string;
+            brandColor: string;
+            address: string | null;
+            taxId: string | null;
         };
         client: {
             id: string;
@@ -63,6 +75,10 @@ export declare class InvoiceController {
         clientId: string;
         invoiceNumber: string;
         amount: number;
+        lineItems: import("@prisma/client/runtime/library").JsonValue | null;
+        subtotal: number;
+        tax: number;
+        total: number;
     }>;
     updateStatus(id: string, req: any, body: {
         status: string;

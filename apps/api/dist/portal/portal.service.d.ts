@@ -32,5 +32,9 @@ export declare class PortalService {
         clientId: string;
         invoiceNumber: string;
         amount: number;
+        lineItems: import("@prisma/client/runtime/library").JsonValue | null;
+        subtotal: number;
+        tax: number;
+        total: number;
     }[]>;
 }

@@ -22,6 +22,10 @@ export declare class InvoiceService {
         clientId: string;
         invoiceNumber: string;
         amount: number;
+        lineItems: import("@prisma/client/runtime/library").JsonValue | null;
+        subtotal: number;
+        tax: number;
+        total: number;
     })[]>;
     create(businessId: string, data: any): Promise<{
         id: string;
@@ -32,6 +36,10 @@ export declare class InvoiceService {
         clientId: string;
         invoiceNumber: string;
         amount: number;
+        lineItems: import("@prisma/client/runtime/library").JsonValue | null;
+        subtotal: number;
+        tax: number;
+        total: number;
     }>;
     findOne(id: string, businessId: string): Promise<{
         business: {
@@ -42,6 +50,10 @@ export declare class InvoiceService {
             slug: string;
             logo: string | null;
             status: string;
+            currency: string;
+            brandColor: string;
+            address: string | null;
+            taxId: string | null;
         };
         client: {
             id: string;
@@ -62,7 +74,13 @@ export declare class InvoiceService {
         clientId: string;
         invoiceNumber: string;
         amount: number;
+        lineItems: import("@prisma/client/runtime/library").JsonValue | null;
+        subtotal: number;
+        tax: number;
+        total: number;
     }>;
     updateStatus(id: string, businessId: string, status: any): Promise<import(".prisma/client").Prisma.BatchPayload>;
     generatePdf(id: string, businessId: string): Promise<Buffer>;
+    private generateTableRow;
+    private generateHr;
 }

@@ -10,6 +10,10 @@ export declare class BusinessService {
         slug: string;
         logo: string | null;
         status: string;
+        currency: string;
+        brandColor: string;
+        address: string | null;
+        taxId: string | null;
     }>;
     update(id: string, data: any): Promise<{
         id: string;
@@ -19,5 +23,9 @@ export declare class BusinessService {
         slug: string;
         logo: string | null;
         status: string;
+        currency: string;
+        brandColor: string;
+        address: string | null;
+        taxId: string | null;
     }>;
 }

@@ -1,0 +1,14 @@
+-- AlterTable
+ALTER TABLE "Business" ADD COLUMN     "address" TEXT,
+ADD COLUMN     "brandColor" TEXT NOT NULL DEFAULT '#4f46e5',
+ADD COLUMN     "currency" TEXT NOT NULL DEFAULT 'USD',
+ADD COLUMN     "taxId" TEXT;
+
+-- AlterTable
+ALTER TABLE "File" ADD COLUMN     "publicId" TEXT;
+
+-- AlterTable
+ALTER TABLE "Invoice" ADD COLUMN     "lineItems" JSONB,
+ADD COLUMN     "subtotal" DOUBLE PRECISION NOT NULL DEFAULT 0,
+ADD COLUMN     "tax" DOUBLE PRECISION NOT NULL DEFAULT 0,
+ADD COLUMN     "total" DOUBLE PRECISION NOT NULL DEFAULT 0;

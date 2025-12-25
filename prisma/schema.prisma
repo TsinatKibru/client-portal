@@ -34,6 +34,10 @@ model Business {
   logo      String?
   slug      String   @unique
   status    String   @default("ACTIVE")
+  currency  String   @default("USD")
+  brandColor String  @default("#4f46e5") // indigo-600
+  address   String?
+  taxId     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -103,6 +107,10 @@ model Invoice {
   invoiceNumber String
   amount        Float
   status        InvoiceStatus @default(DRAFT)
+  lineItems     Json?         // [{ description: string, quantity: number, rate: number, tax: number }]
+  subtotal      Float         @default(0)
+  tax           Float         @default(0)
+  total         Float         @default(0)
   businessId    String
   business      Business      @relation(fields: [businessId], references: [id])
   clientId      String

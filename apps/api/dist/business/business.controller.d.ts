@@ -12,6 +12,10 @@ export declare class BusinessController {
         slug: string;
         logo: string | null;
         status: string;
+        currency: string;
+        brandColor: string;
+        address: string | null;
+        taxId: string | null;
     }>;
     updateProfile(req: any, body: any): Promise<{
         id: string;
@@ -21,6 +25,10 @@ export declare class BusinessController {
         slug: string;
         logo: string | null;
         status: string;
+        currency: string;
+        brandColor: string;
+        address: string | null;
+        taxId: string | null;
     }>;
     uploadLogo(req: any, file: Express.Multer.File): Promise<any>;
 }
