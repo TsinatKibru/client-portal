@@ -1,0 +1,152 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  CLIENT
+}
+
+enum ProjectStatus {
+  PENDING
+  IN_PROGRESS
+  DELIVERED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PAID
+}
+
+model Business {
+  id        String   @id @default(cuid())
+  name      String
+  logo      String?
+  slug      String   @unique
+  status    String   @default("ACTIVE")
+  currency  String   @default("USD")
+  brandColor String  @default("#065106") 
+  address   String?
+  taxId     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users     User[]
+  clients   Client[]
+  projects  Project[]
+  invoices  Invoice[]
+  files     File[]
+  activities Activity[]
+}
+
+model User {
+  id         String    @id @default(cuid())
+  email      String    @unique
+  password   String
+  role       Role      @default(OWNER)
+  businessId String
+  business   Business  @relation(fields: [businessId], references: [id])
+  client     Client?   @relation("UserToClient")
+  comments   Comment[]
+  activities Activity[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Client {
+  id         String    @id @default(cuid())
+  name       String
+  email      String
+  phone      String?
+  businessId String
+  business   Business  @relation(fields: [businessId], references: [id])
+  userId     String?   @unique
+  user       User?     @relation("UserToClient", fields: [userId], references: [id])
+  projects   Project[]
+  invoices   Invoice[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Project {
+  id          String        @id @default(cuid())
+  title       String
+  description String?
+  status      ProjectStatus @default(PENDING)
+  businessId  String
+  business    Business      @relation(fields: [businessId], references: [id])
+  clientId    String
+  client      Client        @relation(fields: [clientId], references: [id])
+  files       File[]
+  comments    Comment[]
+  activities  Activity[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model File {
+  id         String   @id @default(cuid())
+  name       String
+  url        String
+  publicId   String?
+  type       String
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id])
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id])
+  comments   Comment[]
+  createdAt  DateTime @default(now())
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  content    String
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id])
+  fileId     String?
+  file       File?    @relation(fields: [fileId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+model Activity {
+  id          String   @id @default(cuid())
+  type        String   // e.g., "FILE_UPLOAD", "STATUS_CHANGE", "COMMENT_ADDED"
+  description String
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id])
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+model Invoice {
+  id            String        @id @default(cuid())
+  invoiceNumber String
+  amount        Float
+  status        InvoiceStatus @default(DRAFT)
+  lineItems     Json?         // [{ description: string, quantity: number, rate: number, tax: number }]
+  subtotal      Float         @default(0)
+  tax           Float         @default(0)
+  total         Float         @default(0)
+  businessId    String
+  business      Business      @relation(fields: [businessId], references: [id])
+  clientId      String
+  client        Client        @relation(fields: [clientId], references: [id])
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
