@@ -8,14 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PusherService = void 0;
 const common_1 = require("@nestjs/common");
-const Pusher = require("pusher");
+const pusher_1 = __importDefault(require("pusher"));
 let PusherService = class PusherService {
     pusher;
     constructor() {
-        this.pusher = new Pusher({
+        this.pusher = new pusher_1.default({
             appId: process.env.PUSHER_APP_ID,
             key: process.env.PUSHER_KEY,
             secret: process.env.PUSHER_SECRET,
