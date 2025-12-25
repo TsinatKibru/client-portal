@@ -46,6 +46,7 @@ model Business {
   projects  Project[]
   invoices  Invoice[]
   files     File[]
+  activities Activity[]
 }
 
 model User {
@@ -127,6 +128,8 @@ model Activity {
   user        User     @relation(fields: [userId], references: [id])
   projectId   String
   project     Project  @relation(fields: [projectId], references: [id])
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id])
   createdAt   DateTime @default(now())
 }
 

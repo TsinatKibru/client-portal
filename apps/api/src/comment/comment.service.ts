@@ -28,6 +28,11 @@ export class CommentService {
             },
         });
 
+        const project = await this.prisma.project.findUnique({
+            where: { id: data.projectId },
+            select: { businessId: true },
+        });
+
         // Trigger real-time event
         await this.pusher.trigger(
             `project-${data.projectId}`,
@@ -42,6 +47,7 @@ export class CommentService {
                 description: `A new comment was added`,
                 userId: userId,
                 projectId: data.projectId,
+                businessId: project?.businessId || '',
             },
         });
 

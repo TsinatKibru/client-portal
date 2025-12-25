@@ -24,6 +24,7 @@ let ActivityService = class ActivityService {
                 description: data.description,
                 userId: data.userId,
                 projectId: data.projectId,
+                businessId: data.businessId,
             },
         });
     }
@@ -39,6 +40,26 @@ let ActivityService = class ActivityService {
                 },
             },
             orderBy: { createdAt: 'desc' },
+        });
+    }
+    async findAllByBusiness(businessId, limit = 10) {
+        return this.prisma.activity.findMany({
+            where: { businessId },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        email: true,
+                    },
+                },
+                project: {
+                    select: {
+                        title: true,
+                    },
+                },
+            },
+            orderBy: { createdAt: 'desc' },
+            take: limit,
         });
     }
 };

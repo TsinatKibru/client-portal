@@ -51,6 +51,7 @@ export class ProjectService {
                 description: `Status changed to ${status}`,
                 userId,
                 projectId: id,
+                businessId,
             },
         }).catch(err => console.error("Failed to log status change activity", err));
 

@@ -38,6 +38,10 @@ let CommentService = class CommentService {
                 },
             },
         });
+        const project = await this.prisma.project.findUnique({
+            where: { id: data.projectId },
+            select: { businessId: true },
+        });
         await this.pusher.trigger(`project-${data.projectId}`, 'comment.added', comment);
         await this.prisma.activity.create({
             data: {
@@ -45,6 +49,7 @@ let CommentService = class CommentService {
                 description: `A new comment was added`,
                 userId: userId,
                 projectId: data.projectId,
+                businessId: project?.businessId || '',
             },
         });
         return comment;

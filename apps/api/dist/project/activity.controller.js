@@ -21,11 +21,21 @@ let ActivityController = class ActivityController {
     constructor(activityService) {
         this.activityService = activityService;
     }
+    async findAllByBusiness(req) {
+        return this.activityService.findAllByBusiness(req.user.businessId);
+    }
     async findAll(projectId) {
         return this.activityService.findAll(projectId);
     }
 };
 exports.ActivityController = ActivityController;
+__decorate([
+    (0, common_1.Get)('business'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ActivityController.prototype, "findAllByBusiness", null);
 __decorate([
     (0, common_1.Get)('project/:projectId'),
     __param(0, (0, common_1.Param)('projectId')),

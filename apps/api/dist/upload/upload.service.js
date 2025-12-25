@@ -50,13 +50,14 @@ let UploadService = class UploadService {
                         projectId,
                     },
                 });
-                if (userId) {
+                if (userId && projectId) {
                     await this.prisma.activity.create({
                         data: {
                             type: 'FILE_UPLOAD',
                             description: `Uploaded file: ${file.originalname}`,
                             userId,
                             projectId,
+                            businessId,
                         },
                     }).catch(err => console.error("Failed to log upload activity", err));
                 }
