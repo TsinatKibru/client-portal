@@ -61,6 +61,22 @@ let ClientService = class ClientService {
             }
         });
     }
+    async disablePortal(id, businessId) {
+        const client = await this.prisma.client.findFirst({
+            where: { id, businessId },
+        });
+        if (!client)
+            throw new common_1.NotFoundException('Client not found');
+        if (!client.userId)
+            return { message: 'Portal already disabled' };
+        await this.prisma.user.delete({
+            where: { id: client.userId },
+        });
+        return this.prisma.client.update({
+            where: { id },
+            data: { userId: null },
+        });
+    }
 };
 exports.ClientService = ClientService;
 exports.ClientService = ClientService = __decorate([

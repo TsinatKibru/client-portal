@@ -31,4 +31,9 @@ export class ClientController {
     async enablePortal(@Param('id') id: string, @Request() req, @Body() body: { password: string }) {
         return this.clientService.enablePortal(id, req.user.businessId, body.password);
     }
+
+    @Patch(':id/disable-portal')
+    async disablePortal(@Param('id') id: string, @Request() req) {
+        return this.clientService.disablePortal(id, req.user.businessId);
+    }
 }

@@ -36,6 +36,9 @@ let ClientController = class ClientController {
     async enablePortal(id, req, body) {
         return this.clientService.enablePortal(id, req.user.businessId, body.password);
     }
+    async disablePortal(id, req) {
+        return this.clientService.disablePortal(id, req.user.businessId);
+    }
 };
 exports.ClientController = ClientController;
 __decorate([
@@ -79,6 +82,14 @@ __decorate([
     __metadata("design:paramtypes", [String, Object, Object]),
     __metadata("design:returntype", Promise)
 ], ClientController.prototype, "enablePortal", null);
+__decorate([
+    (0, common_1.Patch)(':id/disable-portal'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], ClientController.prototype, "disablePortal", null);
 exports.ClientController = ClientController = __decorate([
     (0, common_1.Controller)('clients'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),

@@ -55,5 +55,24 @@ export class ClientService {
             }
         });
     }
-}
 
+    async disablePortal(id: string, businessId: string) {
+        const client = await this.prisma.client.findFirst({
+            where: { id, businessId },
+        });
+
+        if (!client) throw new NotFoundException('Client not found');
+        if (!client.userId) return { message: 'Portal already disabled' };
+
+        // Delete the user record
+        await this.prisma.user.delete({
+            where: { id: client.userId },
+        });
+
+        // The userId in Client model should be nullified
+        return this.prisma.client.update({
+            where: { id },
+            data: { userId: null },
+        });
+    }
+}
