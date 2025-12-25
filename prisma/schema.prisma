@@ -35,7 +35,7 @@ model Business {
   slug      String   @unique
   status    String   @default("ACTIVE")
   currency  String   @default("USD")
-  brandColor String  @default("#4f46e5") // indigo-600
+  brandColor String  @default("#065106") 
   address   String?
   taxId     String?
   createdAt DateTime @default(now())
