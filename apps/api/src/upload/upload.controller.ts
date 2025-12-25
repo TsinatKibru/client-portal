@@ -15,7 +15,7 @@ export class UploadController {
         @Request() req,
         @Param('projectId') projectId: string,
     ) {
-        return this.uploadService.uploadFile(file, req.user.businessId, projectId);
+        return this.uploadService.uploadFile(file, req.user.businessId, projectId, req.user.userId);
     }
 
     @Delete(':projectId/delete/:fileId')

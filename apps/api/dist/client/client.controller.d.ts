@@ -9,8 +9,8 @@ export declare class ClientController {
         createdAt: Date;
         updatedAt: Date;
         name: string;
-        phone: string | null;
         userId: string | null;
+        phone: string | null;
     }[]>;
     create(req: any, body: any): Promise<{
         id: string;
@@ -19,8 +19,8 @@ export declare class ClientController {
         createdAt: Date;
         updatedAt: Date;
         name: string;
-        phone: string | null;
         userId: string | null;
+        phone: string | null;
     }>;
     findOne(id: string, req: any): Promise<{
         id: string;
@@ -29,8 +29,8 @@ export declare class ClientController {
         createdAt: Date;
         updatedAt: Date;
         name: string;
-        phone: string | null;
         userId: string | null;
+        phone: string | null;
     } | null>;
     update(id: string, req: any, body: any): Promise<import(".prisma/client").Prisma.BatchPayload>;
     enablePortal(id: string, req: any, body: {
@@ -51,8 +51,8 @@ export declare class ClientController {
         createdAt: Date;
         updatedAt: Date;
         name: string;
-        phone: string | null;
         userId: string | null;
+        phone: string | null;
     } | {
         message: string;
     }>;

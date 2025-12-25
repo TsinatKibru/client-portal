@@ -11,8 +11,8 @@ export declare class InvoiceController {
             createdAt: Date;
             updatedAt: Date;
             name: string;
-            phone: string | null;
             userId: string | null;
+            phone: string | null;
         };
     } & {
         id: string;
@@ -63,8 +63,8 @@ export declare class InvoiceController {
             createdAt: Date;
             updatedAt: Date;
             name: string;
-            phone: string | null;
             userId: string | null;
+            phone: string | null;
         };
     } & {
         id: string;

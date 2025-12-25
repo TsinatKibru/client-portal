@@ -1,11 +1,13 @@
 import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { v2 as cloudinary } from 'cloudinary';
 import { PrismaService } from '../prisma/prisma.service';
+import { PusherService } from '../realtime/pusher.service';
 
 @Injectable()
 export class UploadService {
     constructor(
         private prisma: PrismaService,
+        private pusher: PusherService,
     ) {
         cloudinary.config({
             cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -14,7 +16,7 @@ export class UploadService {
         });
     }
 
-    async uploadFile(file: Express.Multer.File, businessId: string, projectId?: string) {
+    async uploadFile(file: Express.Multer.File, businessId: string, projectId?: string, userId?: string) {
         return new Promise((resolve, reject) => {
             const upload = cloudinary.uploader.upload_stream(
                 {
@@ -40,6 +42,22 @@ export class UploadService {
                             projectId,
                         },
                     });
+
+                    // Log activity if userId is provided
+                    if (userId) {
+                        await this.prisma.activity.create({
+                            data: {
+                                type: 'FILE_UPLOAD',
+                                description: `Uploaded file: ${file.originalname}`,
+                                userId,
+                                projectId,
+                            },
+                        }).catch(err => console.error("Failed to log upload activity", err));
+                    }
+
+                    // Trigger Pusher
+                    await this.pusher.trigger(`project-${projectId}`, 'file.uploaded', savedFile);
+
                     resolve(savedFile);
                 },
             );

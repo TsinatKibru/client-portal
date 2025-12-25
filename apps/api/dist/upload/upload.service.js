@@ -13,17 +13,20 @@ exports.UploadService = void 0;
 const common_1 = require("@nestjs/common");
 const cloudinary_1 = require("cloudinary");
 const prisma_service_1 = require("../prisma/prisma.service");
+const pusher_service_1 = require("../realtime/pusher.service");
 let UploadService = class UploadService {
     prisma;
-    constructor(prisma) {
+    pusher;
+    constructor(prisma, pusher) {
         this.prisma = prisma;
+        this.pusher = pusher;
         cloudinary_1.v2.config({
             cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
             api_key: process.env.CLOUDINARY_API_KEY,
             api_secret: process.env.CLOUDINARY_API_SECRET,
         });
     }
-    async uploadFile(file, businessId, projectId) {
+    async uploadFile(file, businessId, projectId, userId) {
         return new Promise((resolve, reject) => {
             const upload = cloudinary_1.v2.uploader.upload_stream({
                 folder: `client-portal/${businessId}/${projectId || 'general'}`,
@@ -47,6 +50,17 @@ let UploadService = class UploadService {
                         projectId,
                     },
                 });
+                if (userId) {
+                    await this.prisma.activity.create({
+                        data: {
+                            type: 'FILE_UPLOAD',
+                            description: `Uploaded file: ${file.originalname}`,
+                            userId,
+                            projectId,
+                        },
+                    }).catch(err => console.error("Failed to log upload activity", err));
+                }
+                await this.pusher.trigger(`project-${projectId}`, 'file.uploaded', savedFile);
                 resolve(savedFile);
             });
             upload.end(file.buffer);
@@ -79,6 +93,7 @@ let UploadService = class UploadService {
 exports.UploadService = UploadService;
 exports.UploadService = UploadService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        pusher_service_1.PusherService])
 ], UploadService);
 //# sourceMappingURL=upload.service.js.map

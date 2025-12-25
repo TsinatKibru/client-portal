@@ -2,12 +2,14 @@ import { ProjectStatus } from '@prisma/client';
 import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UploadService } from '../upload/upload.service';
+import { PusherService } from '../realtime/pusher.service';
 
 @Injectable()
 export class ProjectService {
     constructor(
         private prisma: PrismaService,
-        private uploadService: UploadService
+        private uploadService: UploadService,
+        private pusher: PusherService,
     ) { }
 
     async findAll(businessId: string) {
@@ -36,11 +38,26 @@ export class ProjectService {
         });
     }
 
-    async updateStatus(id: string, businessId: string, status: any) {
-        return this.prisma.project.updateMany({
-            where: { id, businessId },
+    async updateStatus(id: string, businessId: string, status: ProjectStatus, userId: string) {
+        const project = await this.prisma.project.update({
+            where: { id },
             data: { status },
         });
+
+        // Log activity
+        await this.prisma.activity.create({
+            data: {
+                type: 'STATUS_CHANGE',
+                description: `Status changed to ${status}`,
+                userId,
+                projectId: id,
+            },
+        }).catch(err => console.error("Failed to log status change activity", err));
+
+        // Trigger real-time update
+        await this.pusher.trigger(`project-${id}`, 'status.updated', { status });
+
+        return project;
     }
 
     async delete(id: string, businessId: string) {

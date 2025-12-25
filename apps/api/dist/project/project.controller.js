@@ -34,7 +34,7 @@ let ProjectController = class ProjectController {
         return this.projectService.findOne(id, req.user.businessId);
     }
     async updateStatus(id, req, body) {
-        return this.projectService.updateStatus(id, req.user.businessId, body.status);
+        return this.projectService.updateStatus(id, req.user.businessId, body.status, req.user.userId);
     }
     async delete(id, req) {
         return this.projectService.delete(id, req.user.businessId);

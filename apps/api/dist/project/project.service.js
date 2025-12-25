@@ -13,12 +13,15 @@ exports.ProjectService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
 const upload_service_1 = require("../upload/upload.service");
+const pusher_service_1 = require("../realtime/pusher.service");
 let ProjectService = class ProjectService {
     prisma;
     uploadService;
-    constructor(prisma, uploadService) {
+    pusher;
+    constructor(prisma, uploadService, pusher) {
         this.prisma = prisma;
         this.uploadService = uploadService;
+        this.pusher = pusher;
     }
     async findAll(businessId) {
         return this.prisma.project.findMany({
@@ -43,11 +46,21 @@ let ProjectService = class ProjectService {
             include: { client: true, files: true },
         });
     }
-    async updateStatus(id, businessId, status) {
-        return this.prisma.project.updateMany({
-            where: { id, businessId },
+    async updateStatus(id, businessId, status, userId) {
+        const project = await this.prisma.project.update({
+            where: { id },
             data: { status },
         });
+        await this.prisma.activity.create({
+            data: {
+                type: 'STATUS_CHANGE',
+                description: `Status changed to ${status}`,
+                userId,
+                projectId: id,
+            },
+        }).catch(err => console.error("Failed to log status change activity", err));
+        await this.pusher.trigger(`project-${id}`, 'status.updated', { status });
+        return project;
     }
     async delete(id, businessId) {
         console.log(`ProjectService: Starting deletion of project ${id} for business ${businessId}`);
@@ -86,6 +99,7 @@ exports.ProjectService = ProjectService;
 exports.ProjectService = ProjectService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService,
-        upload_service_1.UploadService])
+        upload_service_1.UploadService,
+        pusher_service_1.PusherService])
 ], ProjectService);
 //# sourceMappingURL=project.service.js.map

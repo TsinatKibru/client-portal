@@ -23,7 +23,7 @@ let UploadController = class UploadController {
         this.uploadService = uploadService;
     }
     async uploadFile(file, req, projectId) {
-        return this.uploadService.uploadFile(file, req.user.businessId, projectId);
+        return this.uploadService.uploadFile(file, req.user.businessId, projectId, req.user.userId);
     }
     async deleteFile(fileId, req) {
         console.log(`Deleting file ${fileId} for business ${req.user.businessId}`);

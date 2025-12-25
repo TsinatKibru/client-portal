@@ -10,8 +10,8 @@ export declare class ProjectController {
             createdAt: Date;
             updatedAt: Date;
             name: string;
-            phone: string | null;
             userId: string | null;
+            phone: string | null;
         };
     } & {
         id: string;
@@ -19,8 +19,8 @@ export declare class ProjectController {
         createdAt: Date;
         updatedAt: Date;
         status: import(".prisma/client").$Enums.ProjectStatus;
-        title: string;
         description: string | null;
+        title: string;
         clientId: string;
     })[]>;
     findAllFiles(req: any): Promise<({
@@ -30,8 +30,8 @@ export declare class ProjectController {
             createdAt: Date;
             updatedAt: Date;
             status: import(".prisma/client").$Enums.ProjectStatus;
-            title: string;
             description: string | null;
+            title: string;
             clientId: string;
         };
     } & {
@@ -50,8 +50,8 @@ export declare class ProjectController {
         createdAt: Date;
         updatedAt: Date;
         status: import(".prisma/client").$Enums.ProjectStatus;
-        title: string;
         description: string | null;
+        title: string;
         clientId: string;
     }>;
     findOne(id: string, req: any): Promise<({
@@ -62,8 +62,8 @@ export declare class ProjectController {
             createdAt: Date;
             updatedAt: Date;
             name: string;
-            phone: string | null;
             userId: string | null;
+            phone: string | null;
         };
         files: {
             id: string;
@@ -81,21 +81,30 @@ export declare class ProjectController {
         createdAt: Date;
         updatedAt: Date;
         status: import(".prisma/client").$Enums.ProjectStatus;
-        title: string;
         description: string | null;
+        title: string;
         clientId: string;
     }) | null>;
     updateStatus(id: string, req: any, body: {
         status: string;
-    }): Promise<import(".prisma/client").Prisma.BatchPayload>;
+    }): Promise<{
+        id: string;
+        businessId: string;
+        createdAt: Date;
+        updatedAt: Date;
+        status: import(".prisma/client").$Enums.ProjectStatus;
+        description: string | null;
+        title: string;
+        clientId: string;
+    }>;
     delete(id: string, req: any): Promise<{
         id: string;
         businessId: string;
         createdAt: Date;
         updatedAt: Date;
         status: import(".prisma/client").$Enums.ProjectStatus;
-        title: string;
         description: string | null;
+        title: string;
         clientId: string;
     }>;
 }

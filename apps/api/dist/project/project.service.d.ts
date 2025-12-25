@@ -1,9 +1,12 @@
+import { ProjectStatus } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { UploadService } from '../upload/upload.service';
+import { PusherService } from '../realtime/pusher.service';
 export declare class ProjectService {
     private prisma;
     private uploadService;
-    constructor(prisma: PrismaService, uploadService: UploadService);
+    private pusher;
+    constructor(prisma: PrismaService, uploadService: UploadService, pusher: PusherService);
     findAll(businessId: string): Promise<({
         client: {
             id: string;
@@ -12,8 +15,8 @@ export declare class ProjectService {
             createdAt: Date;
             updatedAt: Date;
             name: string;
-            phone: string | null;
             userId: string | null;
+            phone: string | null;
         };
     } & {
         id: string;
@@ -21,8 +24,8 @@ export declare class ProjectService {
         createdAt: Date;
         updatedAt: Date;
         status: import(".prisma/client").$Enums.ProjectStatus;
-        title: string;
         description: string | null;
+        title: string;
         clientId: string;
     })[]>;
     create(businessId: string, data: any): Promise<{
@@ -31,8 +34,8 @@ export declare class ProjectService {
         createdAt: Date;
         updatedAt: Date;
         status: import(".prisma/client").$Enums.ProjectStatus;
-        title: string;
         description: string | null;
+        title: string;
         clientId: string;
     }>;
     findOne(id: string, businessId: string): Promise<({
@@ -43,8 +46,8 @@ export declare class ProjectService {
             createdAt: Date;
             updatedAt: Date;
             name: string;
-            phone: string | null;
             userId: string | null;
+            phone: string | null;
         };
         files: {
             id: string;
@@ -62,19 +65,28 @@ export declare class ProjectService {
         createdAt: Date;
         updatedAt: Date;
         status: import(".prisma/client").$Enums.ProjectStatus;
-        title: string;
         description: string | null;
+        title: string;
         clientId: string;
     }) | null>;
-    updateStatus(id: string, businessId: string, status: any): Promise<import(".prisma/client").Prisma.BatchPayload>;
+    updateStatus(id: string, businessId: string, status: ProjectStatus, userId: string): Promise<{
+        id: string;
+        businessId: string;
+        createdAt: Date;
+        updatedAt: Date;
+        status: import(".prisma/client").$Enums.ProjectStatus;
+        description: string | null;
+        title: string;
+        clientId: string;
+    }>;
     delete(id: string, businessId: string): Promise<{
         id: string;
         businessId: string;
         createdAt: Date;
         updatedAt: Date;
         status: import(".prisma/client").$Enums.ProjectStatus;
-        title: string;
         description: string | null;
+        title: string;
         clientId: string;
     }>;
     findAllFiles(businessId: string): Promise<({
@@ -84,8 +96,8 @@ export declare class ProjectService {
             createdAt: Date;
             updatedAt: Date;
             status: import(".prisma/client").$Enums.ProjectStatus;
-            title: string;
             description: string | null;
+            title: string;
             clientId: string;
         };
     } & {

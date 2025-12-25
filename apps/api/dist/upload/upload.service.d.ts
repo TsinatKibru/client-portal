@@ -1,8 +1,10 @@
 import { PrismaService } from '../prisma/prisma.service';
+import { PusherService } from '../realtime/pusher.service';
 export declare class UploadService {
     private prisma;
-    constructor(prisma: PrismaService);
-    uploadFile(file: Express.Multer.File, businessId: string, projectId?: string): Promise<unknown>;
+    private pusher;
+    constructor(prisma: PrismaService, pusher: PusherService);
+    uploadFile(file: Express.Multer.File, businessId: string, projectId?: string, userId?: string): Promise<unknown>;
     deleteFile(fileId: string, businessId: string): Promise<{
         id: string;
         businessId: string;

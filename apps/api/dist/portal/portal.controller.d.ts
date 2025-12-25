@@ -19,8 +19,8 @@ export declare class PortalController {
         createdAt: Date;
         updatedAt: Date;
         status: import(".prisma/client").$Enums.ProjectStatus;
-        title: string;
         description: string | null;
+        title: string;
         clientId: string;
     })[]>;
     getInvoices(req: any): Promise<{

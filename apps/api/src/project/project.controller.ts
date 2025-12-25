@@ -29,7 +29,7 @@ export class ProjectController {
 
     @Patch(':id/status')
     async updateStatus(@Param('id') id: string, @Request() req, @Body() body: { status: string }) {
-        return this.projectService.updateStatus(id, req.user.businessId, body.status);
+        return this.projectService.updateStatus(id, req.user.businessId, body.status as any, req.user.userId);
     }
 
     @Delete(':id')

@@ -11,15 +11,17 @@ const common_1 = require("@nestjs/common");
 const project_controller_1 = require("./project.controller");
 const project_service_1 = require("./project.service");
 const upload_module_1 = require("../upload/upload.module");
+const activity_controller_1 = require("./activity.controller");
+const activity_service_1 = require("./activity.service");
 let ProjectModule = class ProjectModule {
 };
 exports.ProjectModule = ProjectModule;
 exports.ProjectModule = ProjectModule = __decorate([
     (0, common_1.Module)({
         imports: [upload_module_1.UploadModule],
-        controllers: [project_controller_1.ProjectController],
-        providers: [project_service_1.ProjectService],
-        exports: [project_service_1.ProjectService]
+        controllers: [project_controller_1.ProjectController, activity_controller_1.ActivityController],
+        providers: [project_service_1.ProjectService, activity_service_1.ActivityService],
+        exports: [project_service_1.ProjectService, activity_service_1.ActivityService]
     })
 ], ProjectModule);
 //# sourceMappingURL=project.module.js.map
