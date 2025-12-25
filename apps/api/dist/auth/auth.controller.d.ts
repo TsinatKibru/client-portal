@@ -7,7 +7,7 @@ export declare class AuthController {
         user: {
             id: string;
             email: string;
-            role: import(".prisma/client").$Enums.Role;
+            role: import("@prisma/client").$Enums.Role;
             businessId: string;
         };
     }>;
@@ -16,17 +16,17 @@ export declare class AuthController {
         user: {
             id: string;
             email: string;
-            role: import(".prisma/client").$Enums.Role;
+            role: import("@prisma/client").$Enums.Role;
             businessId: string;
         };
     }>;
     changePassword(req: any, body: any): Promise<{
         id: string;
+        createdAt: Date;
         email: string;
         password: string;
-        role: import(".prisma/client").$Enums.Role;
+        role: import("@prisma/client").$Enums.Role;
         businessId: string;
-        createdAt: Date;
         updatedAt: Date;
     }>;
 }

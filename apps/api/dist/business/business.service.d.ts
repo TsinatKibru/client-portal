@@ -7,9 +7,9 @@ export declare class BusinessService {
         createdAt: Date;
         updatedAt: Date;
         name: string;
-        slug: string;
-        logo: string | null;
         status: string;
+        logo: string | null;
+        slug: string;
         currency: string;
         brandColor: string;
         address: string | null;
@@ -20,9 +20,9 @@ export declare class BusinessService {
         createdAt: Date;
         updatedAt: Date;
         name: string;
-        slug: string;
-        logo: string | null;
         status: string;
+        logo: string | null;
+        slug: string;
         currency: string;
         brandColor: string;
         address: string | null;

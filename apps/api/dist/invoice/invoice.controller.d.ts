@@ -6,20 +6,20 @@ export declare class InvoiceController {
     findAll(req: any): Promise<({
         client: {
             id: string;
+            createdAt: Date;
+            userId: string | null;
             email: string;
             businessId: string;
-            createdAt: Date;
             updatedAt: Date;
             name: string;
-            userId: string | null;
             phone: string | null;
         };
     } & {
         id: string;
-        businessId: string;
         createdAt: Date;
+        businessId: string;
         updatedAt: Date;
-        status: import(".prisma/client").$Enums.InvoiceStatus;
+        status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;
         invoiceNumber: string;
         amount: number;
@@ -30,10 +30,10 @@ export declare class InvoiceController {
     })[]>;
     create(req: any, body: any): Promise<{
         id: string;
-        businessId: string;
         createdAt: Date;
+        businessId: string;
         updatedAt: Date;
-        status: import(".prisma/client").$Enums.InvoiceStatus;
+        status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;
         invoiceNumber: string;
         amount: number;
@@ -48,9 +48,9 @@ export declare class InvoiceController {
             createdAt: Date;
             updatedAt: Date;
             name: string;
-            slug: string;
-            logo: string | null;
             status: string;
+            logo: string | null;
+            slug: string;
             currency: string;
             brandColor: string;
             address: string | null;
@@ -58,20 +58,20 @@ export declare class InvoiceController {
         };
         client: {
             id: string;
+            createdAt: Date;
+            userId: string | null;
             email: string;
             businessId: string;
-            createdAt: Date;
             updatedAt: Date;
             name: string;
-            userId: string | null;
             phone: string | null;
         };
     } & {
         id: string;
-        businessId: string;
         createdAt: Date;
+        businessId: string;
         updatedAt: Date;
-        status: import(".prisma/client").$Enums.InvoiceStatus;
+        status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;
         invoiceNumber: string;
         amount: number;
@@ -82,6 +82,6 @@ export declare class InvoiceController {
     }>;
     updateStatus(id: string, req: any, body: {
         status: string;
-    }): Promise<import(".prisma/client").Prisma.BatchPayload>;
+    }): Promise<import("@prisma/client").Prisma.BatchPayload>;
     downloadPdf(id: string, req: any, res: Response): Promise<void>;
 }

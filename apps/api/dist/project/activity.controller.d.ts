@@ -12,12 +12,12 @@ export declare class ActivityController {
         };
     } & {
         id: string;
-        businessId: string;
         createdAt: Date;
-        type: string;
-        projectId: string;
-        description: string;
         userId: string;
+        projectId: string;
+        businessId: string;
+        description: string;
+        type: string;
     })[]>;
     findAll(projectId: string): Promise<({
         user: {
@@ -26,11 +26,11 @@ export declare class ActivityController {
         };
     } & {
         id: string;
-        businessId: string;
         createdAt: Date;
-        type: string;
-        projectId: string;
-        description: string;
         userId: string;
+        projectId: string;
+        businessId: string;
+        description: string;
+        type: string;
     })[]>;
 }

@@ -5,106 +5,106 @@ export declare class ProjectController {
     findAll(req: any): Promise<({
         client: {
             id: string;
+            createdAt: Date;
+            userId: string | null;
             email: string;
             businessId: string;
-            createdAt: Date;
             updatedAt: Date;
             name: string;
-            userId: string | null;
             phone: string | null;
         };
     } & {
         id: string;
-        businessId: string;
         createdAt: Date;
+        businessId: string;
         updatedAt: Date;
-        status: import(".prisma/client").$Enums.ProjectStatus;
-        description: string | null;
         title: string;
+        description: string | null;
+        status: import("@prisma/client").$Enums.ProjectStatus;
         clientId: string;
     })[]>;
     findAllFiles(req: any): Promise<({
         project: {
             id: string;
-            businessId: string;
             createdAt: Date;
+            businessId: string;
             updatedAt: Date;
-            status: import(".prisma/client").$Enums.ProjectStatus;
-            description: string | null;
             title: string;
+            description: string | null;
+            status: import("@prisma/client").$Enums.ProjectStatus;
             clientId: string;
         };
     } & {
         id: string;
-        businessId: string;
         createdAt: Date;
+        projectId: string;
+        businessId: string;
         name: string;
         url: string;
         publicId: string | null;
         type: string;
-        projectId: string;
     })[]>;
     create(req: any, body: any): Promise<{
         id: string;
-        businessId: string;
         createdAt: Date;
+        businessId: string;
         updatedAt: Date;
-        status: import(".prisma/client").$Enums.ProjectStatus;
-        description: string | null;
         title: string;
+        description: string | null;
+        status: import("@prisma/client").$Enums.ProjectStatus;
         clientId: string;
     }>;
     findOne(id: string, req: any): Promise<({
         client: {
             id: string;
+            createdAt: Date;
+            userId: string | null;
             email: string;
             businessId: string;
-            createdAt: Date;
             updatedAt: Date;
             name: string;
-            userId: string | null;
             phone: string | null;
         };
         files: {
             id: string;
-            businessId: string;
             createdAt: Date;
+            projectId: string;
+            businessId: string;
             name: string;
             url: string;
             publicId: string | null;
             type: string;
-            projectId: string;
         }[];
     } & {
         id: string;
-        businessId: string;
         createdAt: Date;
+        businessId: string;
         updatedAt: Date;
-        status: import(".prisma/client").$Enums.ProjectStatus;
-        description: string | null;
         title: string;
+        description: string | null;
+        status: import("@prisma/client").$Enums.ProjectStatus;
         clientId: string;
     }) | null>;
     updateStatus(id: string, req: any, body: {
         status: string;
     }): Promise<{
         id: string;
-        businessId: string;
         createdAt: Date;
+        businessId: string;
         updatedAt: Date;
-        status: import(".prisma/client").$Enums.ProjectStatus;
-        description: string | null;
         title: string;
+        description: string | null;
+        status: import("@prisma/client").$Enums.ProjectStatus;
         clientId: string;
     }>;
     delete(id: string, req: any): Promise<{
         id: string;
-        businessId: string;
         createdAt: Date;
+        businessId: string;
         updatedAt: Date;
-        status: import(".prisma/client").$Enums.ProjectStatus;
-        description: string | null;
         title: string;
+        description: string | null;
+        status: import("@prisma/client").$Enums.ProjectStatus;
         clientId: string;
     }>;
 }

@@ -7,12 +7,12 @@ export declare class UploadService {
     uploadFile(file: Express.Multer.File, businessId: string, projectId?: string, userId?: string): Promise<unknown>;
     deleteFile(fileId: string, businessId: string): Promise<{
         id: string;
-        businessId: string;
         createdAt: Date;
+        projectId: string;
+        businessId: string;
         name: string;
         url: string;
         publicId: string | null;
         type: string;
-        projectId: string;
     }>;
 }

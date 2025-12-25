@@ -9,7 +9,7 @@ export declare class AuthService {
         user: {
             id: string;
             email: string;
-            role: import(".prisma/client").$Enums.Role;
+            role: import("@prisma/client").$Enums.Role;
             businessId: string;
         };
     }>;
@@ -18,17 +18,17 @@ export declare class AuthService {
         user: {
             id: string;
             email: string;
-            role: import(".prisma/client").$Enums.Role;
+            role: import("@prisma/client").$Enums.Role;
             businessId: string;
         };
     }>;
     changePassword(userId: string, data: any): Promise<{
         id: string;
+        createdAt: Date;
         email: string;
         password: string;
-        role: import(".prisma/client").$Enums.Role;
+        role: import("@prisma/client").$Enums.Role;
         businessId: string;
-        createdAt: Date;
         updatedAt: Date;
     }>;
 }

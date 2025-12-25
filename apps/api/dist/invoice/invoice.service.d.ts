@@ -5,20 +5,20 @@ export declare class InvoiceService {
     findAll(businessId: string): Promise<({
         client: {
             id: string;
+            createdAt: Date;
+            userId: string | null;
             email: string;
             businessId: string;
-            createdAt: Date;
             updatedAt: Date;
             name: string;
-            userId: string | null;
             phone: string | null;
         };
     } & {
         id: string;
-        businessId: string;
         createdAt: Date;
+        businessId: string;
         updatedAt: Date;
-        status: import(".prisma/client").$Enums.InvoiceStatus;
+        status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;
         invoiceNumber: string;
         amount: number;
@@ -29,10 +29,10 @@ export declare class InvoiceService {
     })[]>;
     create(businessId: string, data: any): Promise<{
         id: string;
-        businessId: string;
         createdAt: Date;
+        businessId: string;
         updatedAt: Date;
-        status: import(".prisma/client").$Enums.InvoiceStatus;
+        status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;
         invoiceNumber: string;
         amount: number;
@@ -47,9 +47,9 @@ export declare class InvoiceService {
             createdAt: Date;
             updatedAt: Date;
             name: string;
-            slug: string;
-            logo: string | null;
             status: string;
+            logo: string | null;
+            slug: string;
             currency: string;
             brandColor: string;
             address: string | null;
@@ -57,20 +57,20 @@ export declare class InvoiceService {
         };
         client: {
             id: string;
+            createdAt: Date;
+            userId: string | null;
             email: string;
             businessId: string;
-            createdAt: Date;
             updatedAt: Date;
             name: string;
-            userId: string | null;
             phone: string | null;
         };
     } & {
         id: string;
-        businessId: string;
         createdAt: Date;
+        businessId: string;
         updatedAt: Date;
-        status: import(".prisma/client").$Enums.InvoiceStatus;
+        status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;
         invoiceNumber: string;
         amount: number;
@@ -79,7 +79,7 @@ export declare class InvoiceService {
         tax: number;
         total: number;
     }>;
-    updateStatus(id: string, businessId: string, status: any): Promise<import(".prisma/client").Prisma.BatchPayload>;
+    updateStatus(id: string, businessId: string, status: any): Promise<import("@prisma/client").Prisma.BatchPayload>;
     generatePdf(id: string, businessId: string): Promise<Buffer>;
     private generateTableRow;
     private generateHr;

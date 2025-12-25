@@ -12,28 +12,28 @@ export declare class CommentService {
         user: {
             id: string;
             email: string;
-            role: import(".prisma/client").$Enums.Role;
+            role: import("@prisma/client").$Enums.Role;
         };
     } & {
         id: string;
-        createdAt: Date;
-        projectId: string;
-        userId: string;
-        fileId: string | null;
         content: string;
+        createdAt: Date;
+        userId: string;
+        projectId: string;
+        fileId: string | null;
     }>;
     findAll(projectId: string): Promise<({
         user: {
             id: string;
             email: string;
-            role: import(".prisma/client").$Enums.Role;
+            role: import("@prisma/client").$Enums.Role;
         };
     } & {
         id: string;
-        createdAt: Date;
-        projectId: string;
-        userId: string;
-        fileId: string | null;
         content: string;
+        createdAt: Date;
+        userId: string;
+        projectId: string;
+        fileId: string | null;
     })[]>;
 }

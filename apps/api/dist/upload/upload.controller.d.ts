@@ -5,22 +5,22 @@ export declare class UploadController {
     uploadFile(file: Express.Multer.File, req: any, projectId: string): Promise<unknown>;
     deleteFile(fileId: string, req: any): Promise<{
         id: string;
-        businessId: string;
         createdAt: Date;
+        projectId: string;
+        businessId: string;
         name: string;
         url: string;
         publicId: string | null;
         type: string;
-        projectId: string;
     }>;
     deleteFileAny(fileId: string, req: any): Promise<{
         id: string;
-        businessId: string;
         createdAt: Date;
+        projectId: string;
+        businessId: string;
         name: string;
         url: string;
         publicId: string | null;
         type: string;
-        projectId: string;
     }>;
 }

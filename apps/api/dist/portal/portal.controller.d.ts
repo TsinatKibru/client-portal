@@ -5,30 +5,30 @@ export declare class PortalController {
     getProjects(req: any): Promise<({
         files: {
             id: string;
-            businessId: string;
             createdAt: Date;
+            projectId: string;
+            businessId: string;
             name: string;
             url: string;
             publicId: string | null;
             type: string;
-            projectId: string;
         }[];
     } & {
         id: string;
-        businessId: string;
         createdAt: Date;
+        businessId: string;
         updatedAt: Date;
-        status: import(".prisma/client").$Enums.ProjectStatus;
-        description: string | null;
         title: string;
+        description: string | null;
+        status: import("@prisma/client").$Enums.ProjectStatus;
         clientId: string;
     })[]>;
     getInvoices(req: any): Promise<{
         id: string;
-        businessId: string;
         createdAt: Date;
+        businessId: string;
         updatedAt: Date;
-        status: import(".prisma/client").$Enums.InvoiceStatus;
+        status: import("@prisma/client").$Enums.InvoiceStatus;
         clientId: string;
         invoiceNumber: string;
         amount: number;

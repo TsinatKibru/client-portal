@@ -11,6 +11,14 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      "@prisma/client": [
+        "./prisma-client"
+      ],
+      "@prisma/client/*": [
+        "./prisma-client/*"
+      ]
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
