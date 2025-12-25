@@ -13,10 +13,10 @@
     "baseUrl": "./",
     "paths": {
       "@prisma/client": [
-        "./prisma-client"
+        "./src/generated/client"
       ],
       "@prisma/client/*": [
-        "./prisma-client/*"
+        "./src/generated/client/*"
       ]
     },
     "incremental": true,
